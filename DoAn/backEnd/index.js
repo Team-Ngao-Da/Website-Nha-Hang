@@ -15,6 +15,7 @@ app.use('/img', express.static(__dirname+'/data'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/users', require('./controllers/users'));
+
 const menuTypeCtrl = require('./controllers/menu_types');
 app.use('/menuTypes', menuTypeCtrl);
 const menuCtrl = require('./controllers/menus');
@@ -35,6 +36,7 @@ const billDetailCtrl = require('./controllers/bill_detail');
 app.use('/billDetails',billDetailCtrl);
 const orderCtrl = require('./controllers/order')
 app.use('/orders',orderCtrl);
+app.use('/ingredients', require('./controllers/ingredients'));
 
 // invalid Url
 app.use((req, res) => {

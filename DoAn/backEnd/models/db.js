@@ -4,7 +4,7 @@ const BillDetailModel = require('./bill_detail');
 const CancelMaterialModel = require('./cancel_material');
 const EmployeeModel = require('./employee');
 const IngredientModel = require('./ingredient');
-const MaterialTypeModel = require('./material_type.js');
+const MaterialTypeModel = require('./material_type');
 const MaterialModel = require('./material');
 const MenuTypeModel = require('./menu_types');
 const MenuModel = require('./menu');
@@ -15,7 +15,7 @@ const UserModel = require('./user');
 
 
 
-const sequelize = new Sequelize('backend', 'sa', '12345', {
+const sequelize = new Sequelize('backend', 'sa', '1234', {
     dialect: 'mssql',
     host: 'localhost',
     dialectOptions: {
@@ -58,8 +58,8 @@ Material.belongsTo(MaterialType, {foreignKey: 'MA_T_ID', as: 'materialType'});
 MaterialType.hasMany(Material, {foreignKey: 'MA_T_ID', as: 'materials'});
 //cap 6
 Ingredient.belongsTo(Menu, {foreignKey: 'M_ID', as: 'menus'});
-Ingredient.belongsTo(Material,{foreignKey:'MA_ID', as:'materials'});
 Menu.hasMany(Ingredient, {foreignKey: 'M_ID', as: 'ingredients'});
+Ingredient.belongsTo(Material,{foreignKey:'MA_ID', as:'materials'});
 Material.hasMany(Ingredient, {foreignKey: 'MA_ID', as: 'ingredients'});
 //cap 7
 CancelMaterial.belongsTo(Employee, {foreignKey: 'E_ID', as: 'employees'});
