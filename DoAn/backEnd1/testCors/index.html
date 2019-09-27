@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link href="plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<table id="tbl" class="table table-striped table-hover table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">Code</th>
+							<th scope="col">Name</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script src="plugins/jquery/jquery-3.3.1.min.js"></script>
+	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script>
+		$(function(){
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:8081/students",
+				success: function(res) {
+					var html = '';
+					$(res).each((i, el) => {
+						html += '<tr>';
+						html += '<td>' + el.stuId + '</td>';
+						html += '<td>' + el.name + '</td>';
+						html += '</tr>';
+					});
+					$('#tbl > tbody').html(html);
+				},
+				error: function() {
+					alert('CORS Disabled!');
+				}
+			});
+		});
+	</script>
+</body>
+</html>
