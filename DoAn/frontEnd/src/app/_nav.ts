@@ -59,6 +59,11 @@ export const navItems: NavData[] = [
     icon: 'icon-user'
   },
   {
+    name: 'Bill Details',
+    url: '/bill-details',
+    icon: 'icon-user'
+  },
+  {
     name: 'Table detail',
     url: '/table-detail',
     icon: 'icon-user'

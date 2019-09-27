@@ -1,0 +1,81 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-auto">
+        <button type="button" (click)="openAdd()" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered table-striped bg-white">
+        <thead>
+          <tr>
+            <th>Bill ID</th>
+            <th>Menu ID</th>
+            <th>Count</th>
+            <th>Price</th>
+            <th style="width: 60px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of billDetails">
+            <td>{{row.B_ID}}</td>
+            <td>{{row.M_ID}}</td>
+            <td>{{row.count}}</td>
+            <td>{{row.price}}</td>
+            <td>
+              <a href="#" (click)="openEdit($event, row.id)"><i class="fa fa-edit"></i></a>
+              <a href="#" (click)="delete($event, row.id)"><i class="fa fa-trash text-danger"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Bill Details</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Bill ID</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="B_ID" [(ngModel)]="billDetails.B_ID" placeholder="Bill ID">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Menu ID</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="M_ID" [(ngModel)]="billDetails.M_ID" placeholder="Menu ID">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Count</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="count" [(ngModel)]="billDetails.count" placeholder="Count">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Price</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="price" [(ngModel)]="billDetails.price" placeholder="Price">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="hideModal()" class="btn btn-secondary">Close</button>
+        <button type="button" (click)="save()" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -19,6 +19,7 @@ export class ApiService {
       home: `${this.baseUrl}bills`,
       listByEmployee: `${this.baseUrl}bills/getByEmployee`
     },
+    billDetails: `${this.baseUrl}billDetails`,
     employees: `${this.baseUrl}employees`,
     tableDetails: `${this.baseUrl}tableDetails`,
     menuTypes: `${this.baseUrl}menuTypes`,

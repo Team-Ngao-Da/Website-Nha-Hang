@@ -4,6 +4,7 @@ import { MaterialTypeComponent } from './views/material-type/material-type.compo
 import { MenuComponent } from './views/menu/menu.component';
 import { TableDetailComponent } from './views/table-detail/table-detail.component';
 import { BillComponent } from './views/bill/bill.component';
+import { BillDetailsComponent } from './views/bill-details/bill-details.component';
 import { AppGuard } from './app.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -49,7 +50,7 @@ export const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
-    canActivate: [AppGuard],
+    /*canActivate: [AppGuard],*/
     children: [
       {
         path: 'user',
@@ -63,6 +64,13 @@ export const routes: Routes = [
         component: BillComponent,
         data: {
           title: 'Bill'
+        }
+      },
+      {
+        path: 'bill-details',
+        component: BillDetailsComponent,
+        data: {
+          title: 'Bill Details'
         }
       },
       {
