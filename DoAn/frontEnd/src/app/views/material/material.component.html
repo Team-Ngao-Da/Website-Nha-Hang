@@ -1,0 +1,112 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col">
+                <span>Material Type: </span>
+                <select [(ngModel)]="materialTypeId" (change)="loadMaterial()" class="form-control d-inline" style="width: 200px;">
+                    <option value="0"> --- All ---</option>
+                    <option *ngFor="let item of materialTypes" value="{{item.value}}">
+                        {{item.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="button" (click)="openAdd()" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+            </div>
+        </div>        
+    </div>
+    <div class="card-body">
+        <ngx-datatable 
+            class="material"
+            [rows]="materials"
+            [columnMode]="'force'"
+            [headerHeight]="35"
+            [footerHeight]="40"
+            rowHeight="auto"
+            [externalPaging]="true"
+            [count]="page.totalRows"
+            [offset]="page.pageNumber"
+            [limit]="page.pageSize"
+            (page)="loadMaterial($event)"            
+        >
+        <ngx-datatable-column name="Id"></ngx-datatable-column>
+        <ngx-datatable-column name="Name">
+          <ng-template ngx-datatable-header-template>Material Name</ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Supplie"></ngx-datatable-column>
+        <ngx-datatable-column name="Unit"></ngx-datatable-column>
+        <ngx-datatable-column name="Count"></ngx-datatable-column>
+        <ngx-datatable-column name="Cost"></ngx-datatable-column>
+        <ngx-datatable-column name="ExpirationDate"></ngx-datatable-column>
+        <ngx-datatable-column name="ImportDate"></ngx-datatable-column>
+        <ngx-datatable-column name="Type">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.materialType.name}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [width]="30">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <i (click)="openEdit(row.id)" class="fa fa-edit text-primary mr-1 pointer"></i>
+            <i (click)="delete(row.id)" class="fa fa-trash-o text-danger pointer"></i>
+          </ng-template>
+        </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
+
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Material</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" novalidate>
+                <app-form-select ngDefaultControl
+                [label]="'Type'" [id]="'drpType'" [formControl]="form.controls['MA_T_ID']"
+                [(ngModel)]="material.MA_T_ID" [items]="materialTypes"
+                [requiredValidation]="true"></app-form-select>
+             <app-form-input ngDefaultControl
+              [label]="'Name'" [id]="'txtName'" [formControl]="form.controls['name']"
+              [(ngModel)]="material.name" [placeholder]="'Material Name'" 
+              [requiredValidation]="true"
+              [customValidation]="form.controls['name'].errors?.minlength || form.controls['name'].errors?.maxlength"
+              [customValidationMessage]="'material name from 2 to 100 characters.'"></app-form-input>
+            
+            <app-form-input ngDefaultControl
+              [label]="'Supplie'" [id]="'txtSupplie'" [formControl]="form.controls['supplie']"
+              [(ngModel)]="material.supplie" [placeholder]="'Supplie'"
+              [requiredValidation]="true"></app-form-input>
+            <app-form-input ngDefaultControl
+              [label]="'Unit'" [id]="'txtUnit'" [formControl]="form.controls['unit']"
+              [(ngModel)]="material.unit" [placeholder]="'Unit'"
+              [requiredValidation]="true"></app-form-input>
+            <app-form-input ngDefaultControl
+              [label]="'Count'" [id]="'txtCount'" [formControl]="form.controls['count']"
+              [(ngModel)]="material.count" [placeholder]="'Count'"
+              [requiredValidation]="true"></app-form-input>
+            <app-form-input ngDefaultControl
+              [label]="'Cost'" [id]="'txtCost'" [formControl]="form.controls['cost']"
+              [(ngModel)]="material.cost" [placeholder]="'Cost'"
+              [requiredValidation]="true"></app-form-input>
+              <app-form-input ngDefaultControl
+              [label]="'ExpirationDate'" [id]="'txtExpirationDate'" [formControl]="form.controls['expirationDate']"
+              [(ngModel)]="material.expirationDate" [placeholder]="'ExpirationDate'"
+              [requiredValidation]="true"></app-form-input>
+            <app-form-input ngDefaultControl
+              [label]="'ImportDate'" [id]="'txtImportDate'" [formControl]="form.controls['importDate']"
+              [(ngModel)]="material.importDate" [placeholder]="'ImportDate'"
+              [requiredValidation]="true"></app-form-input>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="hideModal()" class="btn btn-secondary">Close</button>
+        <button type="button" [disabled]="!form.valid" (click)="save()" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

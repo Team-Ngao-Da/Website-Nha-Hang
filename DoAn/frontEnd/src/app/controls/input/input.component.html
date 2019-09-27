@@ -1,0 +1,14 @@
+<input
+    [id]="id"
+    [type]="type" 
+    [ngClass]="{ 'is-invalid': formControl.touched && formControl.errors }" 
+    class="form-control"
+    [formControl]="formControl"
+    [(ngModel)]="ngModel"
+    placeholder="placeholder"/>
+<div *ngIf="formControl.touched && emailValidation" class="invalid-feedback">
+    Invalid email.
+</div>
+<div *ngIf="formControl.touched && requiredValidation" class="invalid-feedback">
+    This field is required.
+</div>

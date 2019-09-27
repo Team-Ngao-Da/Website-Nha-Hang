@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col">
+          
+        </div>
+        <div class="col-auto">
+          <button type="button" (click)="openAdd()" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered table-striped bg-white">
+          <thead>
+            <tr>
+              <th>Name</th>
+            
+              <th style="width: 60px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of menuTypes">
+              <td>{{row.name}}</td>
+             
+              <td>
+                <a href="#" (click)="openEdit($event, row.id)"><i class="fa fa-edit"></i></a>
+                <a href="#" (click)="delete($event, row.id)"><i class="fa fa-trash text-danger"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-child-name" class="modal-title pull-left">Menu Types</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="name" [(ngModel)]="menuType.name" placeholder="Name">
+              </div>
+            </div>
+            
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="hideModal()" class="btn btn-secondary">Close</button>
+          <button type="button" (click)="save()" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
