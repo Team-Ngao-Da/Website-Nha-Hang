@@ -8,8 +8,8 @@ app.use(cors({
     methods: ['OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 }));
 
-const auth = require('./middleware/auth');
-app.use(auth);
+// const auth = require('./middleware/auth');
+// app.use(auth);
 // app.use(express.static(path.join(__dirname, 'public')))
 app.use('/img', express.static(__dirname+'/data'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -31,8 +31,8 @@ const employeeCtrl = require('./controllers/employees');
 app.use('/employees',employeeCtrl);
 const billCtrl = require('./controllers/bills');
 app.use('/bills',billCtrl);
-// const billDetailCtrl = require('./controllers/bill_detail');
-// app.use('/billDetails',billDetailCtrl);
+const billDetailCtrl = require('./controllers/bill_detail');
+app.use('/billDetails',billDetailCtrl);
 const orderCtrl = require('./controllers/order')
 app.use('/orders',orderCtrl);
 

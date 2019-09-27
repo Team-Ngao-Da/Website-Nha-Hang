@@ -12,73 +12,73 @@ router.use((req, res, next) => {
 });
 
 // // fill customer apis here
-// router.get('/', (req, res) => {
-//     let page = 0;
-//     if (req.query.p) page = parseInt(req.query.p);
-//     let pageSize = 20;
-//     if (req.query.s) pageSize = parseInt(req.query.s);
-//     let queryString = '';
-//     if (req.query.q) queryString = '%' + decodeURIComponent(req.query.q) + '%';
-//     let sortColumn = 'name';
-//     let sortDirection = 'ASC';
-//     if (req.query.so) {
-//         const sortStr = decodeURIComponent(req.query.so).split(' ');
-//         sortColumn = sortStr[0];
-//         if (sortStr.length == 2) sortDirection = sortStr[1];
-//     }
+router.get('/', (req, res) => {
+    let page = 0;
+    if (req.query.p) page = parseInt(req.query.p);
+    let pageSize = 20;
+    if (req.query.s) pageSize = parseInt(req.query.s);
+    let queryString = '';
+    if (req.query.q) queryString = '%' + decodeURIComponent(req.query.q) + '%';
+    let sortColumn = 'name';
+    let sortDirection = 'ASC';
+    if (req.query.so) {
+        const sortStr = decodeURIComponent(req.query.so).split(' ');
+        sortColumn = sortStr[0];
+        if (sortStr.length == 2) sortDirection = sortStr[1];
+    }
 
-//     const offset = page * pageSize;
-//     if (queryString.length <= 2) {
-//         BillDetail.count().then(numRow => {
-//             const totalRows = numRow;
-//             const totalPages = Math.ceil(totalRows / pageSize);
-//             BillDetail.findAll({
-//                 order: [[sortColumn, sortDirection]],
-//                 offset: offset,
-//                 limit: pageSize,
-//                 include: [{ model: Menu, as: 'menu' }],
-//                 include: [{ model: Bill, as: 'bill' }]
+    const offset = page * pageSize;
+    if (queryString.length <= 2) {
+        BillDetail.count().then(numRow => {
+            const totalRows = numRow;
+            const totalPages = Math.ceil(totalRows / pageSize);
+            BillDetail.findAll({
+                order: [[sortColumn, sortDirection]],
+                offset: offset,
+                limit: pageSize,
+                include: [{ model: Menu, as: 'menu' }],
+                include: [{ model: Bill, as: 'bill' }]
 
-//             }).then(billDetail => {
-//                 return res.json(PagingResult(billDetail, {
-//                     pageNumber: page,
-//                     pageSize: pageSize,
-//                     totalRows: totalRows,
-//                     totalPages: totalPages
-//                 }))
-//             });
-//         });
-//     } else { // search
-//         // conditions
-//         const whereClause = {
-//             [Op.or]: [
-//                 { name: { [Op.like]: queryString } }
+            }).then(billDetail => {
+                return res.json(PagingResult(billDetail, {
+                    pageNumber: page,
+                    pageSize: pageSize,
+                    totalRows: totalRows,
+                    totalPages: totalPages
+                }))
+            });
+        });
+    } else { // search
+        // conditions
+        const whereClause = {
+            [Op.or]: [
+                { name: { [Op.like]: queryString } }
                 
-//             ]
-//         };
+            ]
+        };
 
-//         BillDetail.count({ where: whereClause }).then(numRow => {
-//             const totalRows = numRow;
-//             const totalPages = Math.ceil(totalRows / pageSize);
-//             Customer.findAll({
-//                 where: whereClause,
-//                 order: [[sortColumn, sortDirection]],
-//                 offset: offset,
-//                 limit: pageSize,
-//                 include: [{ model: Menu, as: 'menu' }],
-//                 include: [{ model: Bill, as: 'bill' }],
+        BillDetail.count({ where: whereClause }).then(numRow => {
+            const totalRows = numRow;
+            const totalPages = Math.ceil(totalRows / pageSize);
+            Customer.findAll({
+                where: whereClause,
+                order: [[sortColumn, sortDirection]],
+                offset: offset,
+                limit: pageSize,
+                include: [{ model: Menu, as: 'menu' }],
+                include: [{ model: Bill, as: 'bill' }],
 
-//             }).then(billDetail => {
-//                 return res.json(PagingResult(billDetail, {
-//                     pageNumber: page,
-//                     pageSize: pageSize,
-//                     totalRows: totalRows,
-//                     totalPages: totalPages
-//                 }))
-//             });
-//         });
-//     }
-// });
+            }).then(billDetail => {
+                return res.json(PagingResult(billDetail, {
+                    pageNumber: page,
+                    pageSize: pageSize,
+                    totalRows: totalRows,
+                    totalPages: totalPages
+                }))
+            });
+        });
+    }
+});
 
 router.get('/getByBillDetail/:id(\\d+)', (req, res) => {
     let page = 0;
@@ -222,4 +222,4 @@ router.get('/getByBillDetail/:id(\\d+)', (req, res) => {
 //     });
 // });
 
-// module.exports = router;
+module.exports = router;
