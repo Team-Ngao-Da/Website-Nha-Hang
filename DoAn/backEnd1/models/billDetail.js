@@ -1,5 +1,4 @@
 
-
 module.exports = (sequelize, type) => {
     return sequelize.define('BILL_DETAILS', {
         B_ID: {

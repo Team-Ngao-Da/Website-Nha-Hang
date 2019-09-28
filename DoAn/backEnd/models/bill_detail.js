@@ -11,7 +11,7 @@ module.exports = (sequelize, type) => {
          },
         count: {
             field:'BD_Count',
-             type: type.DATE
+            type: type.DATE
             },
         price:{
             field:'BD_Price',

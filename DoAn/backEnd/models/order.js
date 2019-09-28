@@ -6,19 +6,17 @@ module.exports = (sequelize, type) => {
             primaryKey: true,
             autoIncrement: true
         },
-        
-         M_ID :{
+        M_ID :{
             type: type.INTEGER,
             allowNull: false
          },
-         TD_ID:{
+        TD_ID:{
             type: type.INTEGER,
             allowNull: false
          },
-       count: {
+        count: {
             field: 'O_Count',
-             type: type.INTEGER
-         
+            type: type.INTEGER
         }
         
     }, { timestamps: false, freezeTableName: true })

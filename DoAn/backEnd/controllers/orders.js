@@ -1,6 +1,6 @@
 
 const express = require('express');
-const { BillDetail } = require('./../models/db');
+const { TableDetail, Order, Menu } = require('./../models/db');
 const { PagingResult, ErrorResult, Result} = require('./../utils/base_response');
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.use((req, res, next) => {
     next();
 });
 
-// fill billDetails apis here
+// fill orders apis here
 router.get('/', (req, res) => {
     let page = 0;
     if (req.query.p) page = parseInt(req.query.p);
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
     if (req.query.s) pageSize = parseInt(req.query.s);
     let queryString = '';
     if (req.query.q) queryString = '%' + decodeURIComponent(req.query.q) + '%';
-    let sortColumn = 'B_ID';
+    let sortColumn = 'TD_ID';
     let sortDirection = 'ASC';
     if (req.query.so) {
         const sortStr = decodeURIComponent(req.query.so).split(' ');
@@ -26,15 +26,15 @@ router.get('/', (req, res) => {
     }
     const offset = page * pageSize;
     if (queryString.length <= 2) {
-        BillDetail.count().then(numRow => {
+        Order.count().then(numRow => {
             const totalRows = numRow;
             const totalPages = Math.ceil(totalRows/pageSize);
-            BillDetail.findAll({
+            Order.findAll({
                 order: [[sortColumn, sortDirection]],
                 offset: offset, 
                 limit: pageSize,               
-            }).then(billDetails => {
-                return res.json(PagingResult(billDetails, {
+            }).then(orders => {
+                return res.json(PagingResult(orders, {
                     pageNumber: page,
                     pageSize: pageSize,
                     totalRows: totalRows,
@@ -48,20 +48,20 @@ router.get('/', (req, res) => {
             [Op.or]: [
 //
                { M_ID: { [Op.like]: queryString } },
-               { count: { [Op.like]: queryString} },
-               { price: { [Op.like]: queryString} }
+               { TD_ID: { [Op.like]: queryString } },
+               { count: { [Op.like]: queryString} }
             ]
         };
-        BillDetail.count({ where: whereClause }).then(numRow => {
+        Order.count({ where: whereClause }).then(numRow => {
             const totalRows = numRow;
             const totalPages = Math.ceil(totalRows/pageSize);
-            BillDetail.findAll({
+            Order.findAll({
                 where: whereClause,
                 order: [[sortColumn, sortDirection]],
                 offset: offset, 
                 limit: pageSize
-            }).then(billDetails => {
-                return res.json(PagingResult(billDetails, {
+            }).then(orders => {
+                return res.json(PagingResult(orders, {
                     pageNumber: page,
                     pageSize: pageSize,
                     totalRows: totalRows,
@@ -73,8 +73,8 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/:B_ID', (req, res) => {
-    BillDetail.findByPk(req.params.B_ID).then(type => {
+router.get('/:TD_ID', (req, res) => {
+    Order.findByPk(req.params.TD_ID).then(type => {
         if (type != null) {
             return res.json(Result(type));
         } else {
@@ -85,21 +85,20 @@ router.get('/:B_ID', (req, res) => {
 
 router.post('/', (req, res) => {
     //validate data here
-    BillDetail.create(req.body).then(type => {
+    Order.create(req.body).then(type => {
         return res.json(Result(type));
     }).catch(err => {
         return res.status(400).send(ErrorResult(400, err.errors));
     });
 });
 
-router.put('/:B_ID', (req, res) => {
+router.put('/:id', (req, res) => {
     //validate data here
-    BillDetail.findByPk(req.params.B_ID).then(type => {
+    Order.findByPk(req.params.id).then(type => {
         if (type != null) {
             type.update({
-                M_ID: req.body.M_ID,
-                count: req.body.count,
-                price: req.body.price
+                id: req.body.id,
+                count: req.body.count
             }).then(type => {
                 return res.json(Result(type));
             }).catch(err => {
@@ -111,10 +110,10 @@ router.put('/:B_ID', (req, res) => {
     });
 });
 
-router.delete('/:B_ID', (req, res) => {
-    BillDetail.destroy({
+router.delete('/:TD_ID', (req, res) => {
+    Order.destroy({
         where: {
-            B_ID: req.params.B_ID
+            TD_ID: req.params.TD_ID
         }
     }).then(type => {
         return res.json(Result(type));

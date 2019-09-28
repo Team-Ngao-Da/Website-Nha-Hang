@@ -10,6 +10,7 @@ app.use(cors({
 
 // const auth = require('./middleware/auth');
 // app.use(auth);
+
 // app.use(express.static(path.join(__dirname, 'public')))
 app.use('/img', express.static(__dirname+'/data'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -32,9 +33,9 @@ const employeeCtrl = require('./controllers/employees');
 app.use('/employees',employeeCtrl);
 const billCtrl = require('./controllers/bills');
 app.use('/bills',billCtrl);
-const billDetailCtrl = require('./controllers/bill_detail');
-app.use('/billDetails',billDetailCtrl);
-const orderCtrl = require('./controllers/order')
+// const billDetailCtrl = require('./controllers/bill_details');
+// app.use('/billDetails',billDetailCtrl);
+const orderCtrl = require('./controllers/orders')
 app.use('/orders',orderCtrl);
 app.use('/ingredients', require('./controllers/ingredients'));
 
