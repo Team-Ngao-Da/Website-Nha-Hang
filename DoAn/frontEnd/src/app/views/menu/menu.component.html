@@ -1,57 +1,51 @@
 <div class="card">
-    <div class="card-header">
-        <div class="row">
-            <div class="col">
-                <span>Bill Name: </span>
-                <select [(ngModel)]="menuTypeId" (change)="loadMenu()" class="form-control d-inline" style="width: 200px;">
-                    <option value="0"> --- All ---</option>
-                    <option *ngFor="let item of menuTypes" value="{{item.value}}">
-                        {{item.name}}
-                    </option>
-                </select>
-            </div>
-            <div class="col-auto">
-                <button type="button" (click)="openAdd()" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
-            </div>
-        </div>        
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-4">
+        <span>Menu Name: </span>
+        <select [(ngModel)]="menuTypeId" (change)="loadMenu()" class="form-control d-inline" style="width: 200px;">
+          <option value="0"> --- All ---</option>
+          <option *ngFor="let item of menuTypes" value="{{item.value}}">
+            {{item.name}}
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-6">
+        <input type = 'text'[(ngModel)]= 'keyword' name='keyword'/>
+        <button (click) = 'search()'>Search</button>
+      </div>
+      <div class="col-auto">
+        <button type="button" (click)="openAdd()" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+      </div>
     </div>
-    <div class="card-body">
-        <ngx-datatable 
-            class="material"
-            [rows]="menus"
-            [columnMode]="'force'"
-            [headerHeight]="50"
-            [footerHeight]="50"
-            rowHeight="auto"
-            [externalPaging]="true"
-            [count]="page.totalRows"
-            [offset]="page.pageNumber"
-            [limit]="page.pageSize"
-            (page)="loadMenu($event)"            
-        >
-        <ngx-datatable-column name="Id">
-          <ng-template ngx-datatable-header-template> Id Bill</ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Name"></ngx-datatable-column>
-        <ngx-datatable-column name="Price"></ngx-datatable-column>
-        <ngx-datatable-column name="Image"></ngx-datatable-column>
-        <ngx-datatable-column name="Type">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{row.menuType.name}}
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column [width]="40">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            <i (click)="openEdit(row.id)" class="fa fa-edit text-primary mr-1 pointer"></i>
-            <i (click)="delete(row.id)" class="fa fa-trash-o text-danger pointer"></i>
-          </ng-template>
-        </ngx-datatable-column>
-        </ngx-datatable>
-    </div>
+  </div>
+  <div class="card-body">
+    <ngx-datatable class="material" [rows]="menus" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+      rowHeight="auto" [externalPaging]="true" [count]="page.totalRows" [offset]="page.pageNumber"
+      [limit]="page.pageSize" (page)="loadMenu($event)">
+      <ngx-datatable-column name="Id">
+        <ng-template ngx-datatable-header-template style="font-size: 16px;
+        color:  #000000;"> Id Menu</ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Name"></ngx-datatable-column>
+      <ngx-datatable-column name="Price"></ngx-datatable-column>
+      <ngx-datatable-column name="Image"></ngx-datatable-column>
+      <ngx-datatable-column name="Type">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.menuType.name}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [width]="40">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <i (click)="openEdit(row.id)" class="fa fa-edit text-primary mr-1 pointer"></i>
+          <i (click)="delete(row.id)" class="fa fa-trash-o text-danger pointer"></i>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
 </div>
 
-<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name">
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -62,24 +56,16 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="form" novalidate>
-            <app-form-select ngDefaultControl
-              [label]="'Type'" [id]="'drpType'" [formControl]="form.controls['MT_ID']"
-              [(ngModel)]="menu.MT_ID" [items]="menuTypes"
-              [requiredValidation]="true"></app-form-select>
-              <app-form-input ngDefaultControl
-              [label]="'Name'" [id]="'txtName'" [formControl]="form.controls['name']"
-              [(ngModel)]="menu.name" [placeholder]="'Menu Name'" 
-              [requiredValidation]="true"
-              [customValidation]="form.controls['name'].errors?.minlength || form.controls['name'].errors?.maxlength"
-              [customValidationMessage]="'Menu name from 2 to 100 characters.'"></app-form-input>
-            <app-form-input ngDefaultControl
-              [label]="'Price'" [id]="'txtPrice'" [formControl]="form.controls['price']"
-              [(ngModel)]="menu.price" [placeholder]="'Price'"
-              [requiredValidation]="true"></app-form-input>
-            <app-form-input ngDefaultControl
-              [label]="'Image'" [id]="'txtImage'" [formControl]="form.controls['image']"
-              [(ngModel)]="menu.image" [placeholder]="'Image'"
-              [requiredValidation]="true"></app-form-input>
+          <app-form-select ngDefaultControl [label]="'Type'" [id]="'drpType'" [formControl]="form.controls['MT_ID']"
+            [(ngModel)]="menu.MT_ID" [items]="menuTypes" [requiredValidation]="true"></app-form-select>
+          <app-form-input ngDefaultControl [label]="'Name'" [id]="'txtName'" [formControl]="form.controls['name']"
+            [(ngModel)]="menu.name" [placeholder]="'Menu Name'" [requiredValidation]="true"
+            [customValidation]="form.controls['name'].errors?.minlength || form.controls['name'].errors?.maxlength"
+            [customValidationMessage]="'Menu name from 2 to 100 characters.'"></app-form-input>
+          <app-form-input ngDefaultControl [label]="'Price'" [id]="'txtPrice'" [formControl]="form.controls['price']"
+            [(ngModel)]="menu.price" [placeholder]="'Price'" [requiredValidation]="true"></app-form-input>
+          <app-form-input ngDefaultControl [label]="'Image'" [id]="'txtImage'" [formControl]="form.controls['image']"
+            [(ngModel)]="menu.image" [placeholder]="'Image'" [requiredValidation]="true"></app-form-input>
         </form>
       </div>
       <div class="modal-footer">

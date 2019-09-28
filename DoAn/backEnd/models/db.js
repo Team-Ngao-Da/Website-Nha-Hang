@@ -15,7 +15,7 @@ const UserModel = require('./user');
 
 
 
-const sequelize = new Sequelize('backend', 'sa', '1234', {
+const sequelize = new Sequelize('backend', 'sa', '123456', {
     dialect: 'mssql',
     host: 'localhost',
     dialectOptions: {

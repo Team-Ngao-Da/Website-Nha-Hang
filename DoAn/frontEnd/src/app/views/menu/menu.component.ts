@@ -22,6 +22,7 @@ export class MenuComponent implements OnInit {
   menuTypeId: number = 0;
   page = {pageNumber: 0, pageSize: 3} as Page;
   form: FormGroup;
+  public keyword: string;
   constructor(private menuTypeService: MenuTypeService,
     private fb: FormBuilder,
     private menuService: MenuService, private pNotifyService: PnotifyService) {
@@ -48,6 +49,14 @@ export class MenuComponent implements OnInit {
       this.menu = res.data;
       this.editModal.show();
     });
+  }
+  search() {
+    this.menuService.search(this.keyword).subscribe(res => {
+      this.menus = res.data;
+      console.log(this.keyword);
+      console.log(res.data);
+    });
+
   }
   delete(id: number) {
     this.pNotifyService.confirm('Confirm', 'Are you sure?', yes => {
