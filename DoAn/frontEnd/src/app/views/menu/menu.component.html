@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     <div class="row">
-      <div class="col">
+      <div class="col-sm-4">
         <span>Menu Name: </span>
         <select [(ngModel)]="menuTypeId" (change)="loadMenu()" class="form-control d-inline" style="width: 200px;">
           <option value="0"> --- All ---</option>
@@ -9,6 +9,10 @@
             {{item.name}}
           </option>
         </select>
+      </div>
+      <div class="col-sm-6">
+        <input type = 'text'[(ngModel)]= 'keyword' name='keyword'/>
+        <button (click) = 'search()'>Search</button>
       </div>
       <div class="col-auto">
         <button type="button" (click)="openAdd()" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>

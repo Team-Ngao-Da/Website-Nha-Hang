@@ -24,6 +24,9 @@ export class MenuService {
   get(id): Observable<RootObj<Menu>> {
     return this.apiService.get<RootObj<Menu>>(`${this.apiService.apiUrl.menus.home}/${id}`);
   }
+    search(keyword: string): Observable<RootObj<[Menu]>> {
+return this.apiService.get<RootObj<[Menu]>> (`${this.apiService.apiUrl.menus.home}?q=${keyword}`);
+  }
 
   save(data: Menu): Observable<RootObj<Menu>> {
     if (data.id === 0) {
