@@ -69,39 +69,43 @@ export const navItems: NavData[] = [
     icon: 'icon-user'
   },
   {
-  name: 'Menu',
-  url: '/menu',
-  icon: 'icon-list',
-  children: [
-    {
-      name: 'MenuItem',
-      url: '/menu/menu-item',
-      icon: 'icon-user'
-    },
-    {
-      name: 'Menu Type',
-      url: '/menu/menu-type',
-      icon: 'icon-user'
-    },
+    name: 'Menu',
+    url: '/menu',
+    icon: 'icon-list',
+    children: [
+      {
+        name: 'MenuItem',
+        url: '/menu/menu-item',
+        icon: 'icon-user'
+      },
+      {
+        name: 'Menu Type',
+        url: '/menu/menu-type',
+        icon: 'icon-user'
+      },
 
-  ],
+    ],
   },
   {
-  name: 'Material',
-  url: '/material',
-  icon: 'icon-list',
-  children: [
-    {
-      name: 'Material Item',
-      url: '/material/material-item',
-      icon: 'icon-user'
-    },
-    {
-      name: 'materialType',
-      url: '/material/material-type',
-      icon: 'icon-user'
-    },
-
-  ],
-  }
+    name: 'Material',
+    url: '/material',
+    icon: 'icon-list',
+    children: [
+      {
+        name: 'Material Item',
+        url: '/material/material-item',
+        icon: 'icon-user'
+      },
+      {
+        name: 'materialType',
+        url: '/material/material-type',
+        icon: 'icon-user'
+      }
+    ]
+  },
+  {
+    name: 'Ingredients',
+    url: '/ingredients',
+    icon: 'icon-list'
+  },
 ];

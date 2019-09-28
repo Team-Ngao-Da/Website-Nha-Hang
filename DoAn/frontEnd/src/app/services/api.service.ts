@@ -20,6 +20,7 @@ export class ApiService {
       listByEmployee: `${this.baseUrl}bills/getByEmployee`
     },
     billDetails: `${this.baseUrl}billDetails`,
+    Ingredients: `${this.baseUrl}ingredients`,
     employees: `${this.baseUrl}employees`,
     tableDetails: `${this.baseUrl}tableDetails`,
     menuTypes: `${this.baseUrl}menuTypes`,
